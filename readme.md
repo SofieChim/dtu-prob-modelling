@@ -73,3 +73,97 @@
    ```
    - Confirms everything is up to date.
 
+---
+
+## 4. Setting Up SSH on macOS
+
+### 4.1 Generate an ED25519 SSH Key
+
+In your terminal, run:
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+- Press **Enter** to accept the default location (usually `~/.ssh/id_ed25519`).
+- Enter a passphrase (or skip by pressing Enter), then confirm.
+
+### 4.2 Add Your SSH Key to the ssh-agent
+
+Start the ssh-agent (if not already running) and add your key:
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+### 4.3 Add the Public Key to Your GitHub Account
+
+1. Copy the public key to your clipboard:
+   ```bash
+   pbcopy < ~/.ssh/id_ed25519.pub
+   ```
+2. Go to [GitHub.com](https://github.com), click your profile photo in the top-right corner, then **Settings**.
+3. In the left sidebar, click **SSH and GPG keys**.
+4. Click **New SSH key**, provide a descriptive title, and paste your public key into the *Key* field.
+5. Click **Add SSH key**.
+
+### 4.4 Test Your SSH Connection
+
+Verify everything is working:
+```bash
+ssh -T git@github.com
+```
+You should see a message like:
+```
+Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+You’re all set to use SSH with GitHub!
+
+---
+
+## 5. Setting Up SSH on Windows
+
+### 5.1 Generate an ED25519 SSH Key
+
+In Git Bash or PowerShell, run:
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+- Press **Enter** to accept the default location (usually `~/.ssh/id_ed25519`).
+- Enter a passphrase (or skip by pressing Enter), then confirm.
+
+### 5.2 Add Your SSH Key to the ssh-agent
+
+Start the ssh-agent (if not already running) and add your key:
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+### 5.3 Add the Public Key to Your GitHub Account
+
+1. Copy the public key to your clipboard. In Git Bash, run:
+   ```bash
+   clip < ~/.ssh/id_ed25519.pub
+   ```
+   Or in PowerShell:
+   ```powershell
+   Get-Content ~/.ssh/id_ed25519.pub | clip
+   ```
+2. Go to [GitHub.com](https://github.com), click your profile photo in the top-right corner, then **Settings**.
+3. In the left sidebar, click **SSH and GPG keys**.
+4. Click **New SSH key**, provide a descriptive title, and paste your public key into the *Key* field.
+5. Click **Add SSH key**.
+
+### 5.4 Test Your SSH Connection
+
+Verify everything is working by running:
+```bash
+ssh -T git@github.com
+```
+You should see a message like:
+```
+Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+You’re all set to use SSH with GitHub!
+
